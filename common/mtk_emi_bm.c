@@ -4,6 +4,7 @@
  *
  */
 #include <linux/kernel.h>
+#include <linux/slab.h>
 #include <linux/of.h>
 #include <linux/of_address.h>
 #include <linux/io.h>
@@ -92,6 +93,7 @@ void __iomem *BaseAddrSLC_PMU[MET_MAX_EMI_NUM];
 
 /*read from dts*/
 int EMI_NUM;
+int DRAMC_VER;
 int DRAM_CH_NUM_PER_EMI;
 int SEDA_VER = 350;  /* 300/350/360/500  300:SEDA3.0 */
 int DRAM_FREQ_DEFAULT;
@@ -352,6 +354,14 @@ int MET_BM_Init(void)
 									&EMI_NUM);
 	if (ret) {
 		PR_BOOTMSG("Cannot get emi_num index from dts\n");
+		return -1;
+	}
+	ret = of_property_read_u32_index(node, // device node
+									"dramc_ver",  //device name
+									0, //offset
+									&DRAMC_VER);
+	if (ret) {
+		PR_BOOTMSG("Cannot get dramc_ver index from dts\n");
 		return -1;
 	}
 	ret = of_property_read_u32_index(node, // device node
@@ -3616,6 +3626,9 @@ unsigned met_get_dram_data_rate(void)
 #if IS_ENABLED(CONFIG_MTK_DRAMC)
 	if (mtk_dramc_get_data_rate_symbol)
 		dram_data_rate_MHz = mtk_dramc_get_data_rate_symbol();
+#elif IS_ENABLED(CONFIG_MTK_DRAMC_LEGACY)
+	if (get_dram_data_rate_symbol)
+		dram_data_rate_MHz = get_dram_data_rate_symbol();
 #endif
 	if (dram_data_rate_MHz == 0)
 		dram_data_rate_MHz = met_emi_default_val[e_MET_DRAM_FREQ];
@@ -4154,8 +4167,15 @@ void met_emi_resume_basic(void)
 
 int emi_print_header_basic(char *buf, int len)
 {
+	char * output_buf;
+
+        output_buf = kmalloc(PAGE_SIZE/4, GFP_KERNEL);
+        if (output_buf == NULL) {
+                PR_BOOTMSG("Failed to allocate emi header local buffer!!\n");
+                return -1;
+        }
+
 	if( (strlen(header_str) - output_str_len) > PAGE_SIZE ){
-		char output_buf[PAGE_SIZE/4];
 
 		strncpy(output_buf, header_str+output_str_len, (PAGE_SIZE/4) -1);
 		output_buf[(PAGE_SIZE/4) - 1] = '\0';
@@ -4176,6 +4196,7 @@ int emi_print_header_basic(char *buf, int len)
 		output_header_len = 0;
 		output_str_len = 0;
 	}
+	kfree(output_buf);
 	return len;
 }
 
@@ -4243,6 +4264,7 @@ EXPORT_SYMBOL(mdmcu_sel_enable);
 EXPORT_SYMBOL(BaseAddrSLC_PMU);
 /*read from dts*/
 EXPORT_SYMBOL(EMI_NUM);
+EXPORT_SYMBOL(DRAMC_VER);
 EXPORT_SYMBOL(DRAM_CH_NUM_PER_EMI);
 // EXPORT_SYMBOL(DRAM_FREQ_DEFAULT);
 // EXPORT_SYMBOL(DDR_RATIO_DEFAULT);
