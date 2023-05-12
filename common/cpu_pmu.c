@@ -878,7 +878,9 @@ static int reset_driver_stat(void)
 		}
 	}
 
+#ifdef MET_TINYSYS
 	armpmu_irq_hdlr_cnt = 0;
+#endif
 
 	return 0;
 }
@@ -1716,7 +1718,11 @@ static void ipi_config_pmu_counter_cnt(void) {
 #ifdef MET_SSPM
 			if (met_cpupmu.tinysys_type == 0) {
 				if (sspm_buf_available == 1) {
+#ifdef MET_SCMI
 					ret = met_scmi_to_sspm_command((void *) ipi_buf, sizeof(ipi_buf)/sizeof(unsigned int), &rdata, 1);
+#else
+					ret = met_ipi_to_sspm_command((void *) ipi_buf, 0, &rdata, 1);
+#endif
 				} else {
 					MET_TRACE("[MET_PMU][IPI_CONFIG] sspm_buf_available=%d\n",
 						  sspm_buf_available);
@@ -1757,7 +1763,11 @@ static void ipi_config_pmu_counter_cnt(void) {
 #ifdef MET_SSPM
 			if (met_cpupmu.tinysys_type == 0) {
 				if (sspm_buf_available == 1) {
+#ifdef MET_SCMI
 					ret = met_scmi_to_sspm_command((void *) ipi_buf, sizeof(ipi_buf)/sizeof(unsigned int), &rdata, 1);
+#else
+					ret = met_ipi_to_sspm_command((void *) ipi_buf, 0, &rdata, 1);
+#endif
 				} else {
 					MET_TRACE("[MET_PMU][IPI_CONFIG] sspm_buf_available=%d\n",
 						  sspm_buf_available);
@@ -1797,7 +1807,11 @@ static void ipi_config_pmu_counter_cnt(void) {
 #ifdef MET_SSPM
 			if (met_cpupmu.tinysys_type == 0) {
 				if (sspm_buf_available == 1) {
+#ifdef MET_SCMI
 					ret = met_scmi_to_sspm_command((void *) ipi_buf, sizeof(ipi_buf)/sizeof(unsigned int), &rdata, 1);
+#else
+					ret = met_ipi_to_sspm_command((void *) ipi_buf, 0, &rdata, 1);
+#endif
 				}
 			}
 #endif
@@ -1824,7 +1838,11 @@ static void ipi_config_pmu_counter_cnt(void) {
 #ifdef MET_SSPM
 			if (met_cpupmu.tinysys_type == 0) {
 				if (sspm_buf_available == 1) {
+#ifdef MET_SCMI
 					ret = met_scmi_to_sspm_command((void *) ipi_buf, sizeof(ipi_buf)/sizeof(unsigned int), &rdata, 1);
+#else
+					ret = met_ipi_to_sspm_command((void *) ipi_buf, 0, &rdata, 1);
+#endif
 				}
 			}
 #endif
