@@ -691,8 +691,6 @@ power_on_error:
 static void bt_hw_and_mcu_off(void)
 {
 	BTMTK_INFO("%s", __func__);
-	/* Close hardware bus interface */
-	btmtk_wcn_btif_close();
 
 	bt_disable_irq(BGF2AP_SW_IRQ);
 	bt_disable_irq(BGF2AP_BTIF_WAKEUP_IRQ);
@@ -707,6 +705,9 @@ static void bt_hw_and_mcu_off(void)
 	}
 	/* BGFSYS hardware power off */
 	bgfsys_power_off();
+
+	/* Close hardware bus interface */
+	btmtk_wcn_btif_close();
 }
 
 uint8_t *_internal_evt_result(u_int8_t wmt_evt_result)
