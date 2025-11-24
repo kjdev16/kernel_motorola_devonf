@@ -122,7 +122,7 @@ PVRSRVBridgeDevmemPDumpBitmap(IMG_UINT32 ui32DispatchTableEntry,
 		else
 #endif
 		{
-			pArrayArgsBuffer = OSAllocMemNoStats(ui32BufferSize);
+			pArrayArgsBuffer = OSAllocZMemNoStats(ui32BufferSize);
 
 			if (!pArrayArgsBuffer)
 			{
@@ -289,7 +289,7 @@ PVRSRVBridgePDumpImageDescriptor(IMG_UINT32 ui32DispatchTableEntry,
 		else
 #endif
 		{
-			pArrayArgsBuffer = OSAllocMemNoStats(ui32BufferSize);
+			pArrayArgsBuffer = OSAllocZMemNoStats(ui32BufferSize);
 
 			if (!pArrayArgsBuffer)
 			{
@@ -475,7 +475,7 @@ PVRSRVBridgePVRSRVPDumpComment(IMG_UINT32 ui32DispatchTableEntry,
 		else
 #endif
 		{
-			pArrayArgsBuffer = OSAllocMemNoStats(ui32BufferSize);
+			pArrayArgsBuffer = OSAllocZMemNoStats(ui32BufferSize);
 
 			if (!pArrayArgsBuffer)
 			{
@@ -620,7 +620,7 @@ PVRSRVBridgePDumpDataDescriptor(IMG_UINT32 ui32DispatchTableEntry,
 		else
 #endif
 		{
-			pArrayArgsBuffer = OSAllocMemNoStats(ui32BufferSize);
+			pArrayArgsBuffer = OSAllocZMemNoStats(ui32BufferSize);
 
 			if (!pArrayArgsBuffer)
 			{
