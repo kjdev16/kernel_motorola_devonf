@@ -29,6 +29,8 @@
 
 unsigned int nf_tables_net_id __read_mostly;
 
+unsigned int nf_tables_net_id __read_mostly;
+
 static LIST_HEAD(nf_tables_expressions);
 static LIST_HEAD(nf_tables_objects);
 static LIST_HEAD(nf_tables_flowtables);
@@ -1079,6 +1081,7 @@ static void nf_tables_table_disable(struct net *net, struct nft_table *table)
 	nft_table_disable(net, table, 0);
 	table->flags |= NFT_TABLE_F_DORMANT;
 }
+
 
 #define __NFT_TABLE_F_INTERNAL		(NFT_TABLE_F_MASK + 1)
 #define __NFT_TABLE_F_WAS_DORMANT	(__NFT_TABLE_F_INTERNAL << 0)
