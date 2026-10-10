@@ -1,0 +1,11 @@
+config LEDS_KTD3136
+	tristate "KTD3136 LED driver"
+	default n
+	help
+	  Say Y here if you have KTD3136 LED in
+	  your system.
+
+	  If unsure, say N.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called ktd3136_bl.
