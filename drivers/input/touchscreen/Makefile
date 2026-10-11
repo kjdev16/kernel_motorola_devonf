@@ -125,3 +125,6 @@ endif
 ifneq ($(wildcard $(srctree)/$(src)/k6895v1_64_95t_alpha),)
 obj-$(CONFIG_TOUCHSCREEN_MT6895_ALPHA_SUPPORT) += k6895v1_64_95t_alpha/
 endif
+
+# Motorola touchscreen drivers
+obj-$(CONFIG_TOUCHSCREEN_NVT_CHIPSET) += nova_0flash_mmi_v2/

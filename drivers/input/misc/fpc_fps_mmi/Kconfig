@@ -1,0 +1,21 @@
+config FPC_FPS
+	tristate "Fingerprint Cards Fingerprint Driver"
+	default n
+	help
+	  Say Y here if you wish to include support for Fingerprint Cards (FPC) fingerprint sensor.
+
+	  If unsure, say N.
+
+	  To compile this driver as a module, choose M here: the module will be called fpc_mtk_tee.
+
+config INPUT_MISC_FPC1020_SAVE_TO_CLASS_DEVICE
+	bool "FPC save to class device"
+	default n
+	help
+	  Say Y here if you wish to expose FPC sysfs under /sys/class/fingerprint/fpc_spi.
+
+config FPC_SHARE_GPIO
+	bool "FPC share GPIO"
+	default n
+	help
+	  Say Y here if you wish to share GPIO for FPC fingerprint sensor.
