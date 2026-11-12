@@ -283,7 +283,7 @@ mkzip() {
 		tg "*Building zip!*"
 	fi
 	echo -e "\n\e[1;93m[*] Building zip! \e[0m"
-	cat "${KDIR}"/out/arch/arm64/boot/mediatek/mt6855.dtb > "${KDIR}"/anykernel3-dragonheart/dtb
+	cat "${KDIR}"/out/arch/arm64/boot/dts/mediatek/mt6855.dtb > "${KDIR}"/anykernel3-dragonheart/dtb
 	mv "${KDIR}"/out/arch/arm64/boot/Image.gz "${KDIR}"/anykernel3-dragonheart
 	cd "${KDIR}"/anykernel3-dragonheart || exit 1
 	zip -r9 "$zipn".zip . -x ".git*" -x "README.md" -x "LICENSE" -x "*.zip"
