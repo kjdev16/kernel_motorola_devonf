@@ -493,14 +493,8 @@ static void ktd3136_get_dt_data(struct device *dev, struct ktd3136_data *drvdata
 	drvdata->pwm_mode = of_property_read_bool(np,"ktd,pwm-mode");
 	pr_debug("pwmmode --<%d> \n", drvdata->pwm_mode);
 
-	rc = of_property_read_u32(np, "ktd,map-type", &drvdata->map_type);
-	if (rc != 0) {
-		//Linear default
-		drvdata->map_type = 1;
-		pr_info("%s map-type default linear:1\n", __func__);
-	}
-	else
-		pr_info("%s map-type=%d\n", __func__, drvdata->map_type);
+	drvdata->map_type = 1; /* 1: linear, 0: expo, linear as default*/
+	pr_info("%s map-type=%d\n", __func__, drvdata->map_type);
 
 	rc = of_property_read_u32(np, "ktd,current-align-type", &drvdata->led_current_align);
 	if (rc != 0) {
