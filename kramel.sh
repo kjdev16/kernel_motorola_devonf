@@ -253,12 +253,6 @@ mod() {
 	make -j"$PROCS" "${MAKE[@]}" modules
 	make "${MAKE[@]}" INSTALL_MOD_PATH="${KDIR}"/out/modules modules_install
 
-	find "${KDIR}"/out/modules \
-		-type f \
-		-iname '*.ko' \
-		-exec cp {} \
-		"${KDIR}"/anykernel3-tachyon/modules/system/lib/modules/ \;
-
 	echo -e "\n\e[1;32m[✓] Built Modules! \e[0m"
 }
 
