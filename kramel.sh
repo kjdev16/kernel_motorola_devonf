@@ -299,6 +299,7 @@ pre() {
 
 		if [ -e "${KDIR}/out/dist/${filename}" ]; then
 			cp -p "${KDIR}/out/dist/${filename}" "${KDIR}/prebuilt/modules/vendor_boot" || exit 1
+			"${KDIR}/${COMPILER}/bin/llvm-objcopy" --strip-debug "${KDIR}/prebuilt/modules/vendor_boot/${filename}"
 		fi
 	done
 	for file in "${KDIR}"/prebuilt/modules/vendor_dlkm/*.ko; do
@@ -306,6 +307,7 @@ pre() {
 
 		if [ -e "${KDIR}/out/dist/${filename}" ]; then
 			cp -p "${KDIR}/out/dist/${filename}" "${KDIR}/prebuilt/modules/vendor_dlkm" || exit 1
+			"${KDIR}/${COMPILER}/bin/llvm-objcopy" --strip-debug "${KDIR}/prebuilt/modules/vendor_dlkm/${filename}"
 		fi
 
 	done
